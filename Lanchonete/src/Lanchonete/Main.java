@@ -4,21 +4,15 @@ import Usuario.AuthenticationService;
 import Usuario.InputHandler;
 import Usuario.UserAccountManager;
 
-import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
-
-    private static HashMap<String, String> accounts = new HashMap<>();
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         UserAccountManager accountManager = new UserAccountManager();
+        accountManager.initializeExcelFile();  // Inicializa o arquivo Excel se não existir
         AuthenticationService authService = new AuthenticationService(accountManager);
         InputHandler inputHandler = new InputHandler(scanner);
-
-        // Adiciona a conta inicial
-        accountManager.createAccount("admin", "password");
 
         while (true) {
             inputHandler.showMenu();

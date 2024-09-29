@@ -3,6 +3,7 @@ package Usuario;
 import java.util.Scanner;
 
 public class InputHandler {
+
     private Scanner scanner;
 
     public InputHandler(Scanner scanner) {
@@ -40,5 +41,18 @@ public class InputHandler {
         System.out.print("Digite a nova senha: ");
         String password = scanner.nextLine();
         return new String[]{username, password};
+    }
+
+    // Obtém as informações adicionais do usuário (Nome, Telefone, Endereço, CPF)
+    public String[] getUserInfo() {
+        System.out.print("Digite o seu nome: ");
+        String name = scanner.nextLine();
+        System.out.print("Digite o seu telefone: ");
+        String phone = scanner.nextLine();
+        System.out.print("Digite o seu endereço: ");
+        String address = scanner.nextLine();
+        System.out.print("Digite o seu CPF: ");
+        String cpf = scanner.nextLine();
+        return new String[]{name, phone, address, cpf};
     }
 }

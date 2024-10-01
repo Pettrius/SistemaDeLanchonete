@@ -1,5 +1,7 @@
 package Usuario;
 
+import Pedido.Menu;
+import Pedido.Pedido;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -27,11 +29,27 @@ public class Main {
                     if (authService.login(loginDetails[0], loginDetails[1])) {
                         System.out.println("Login bem-sucedido.");
 
+                        // Exibe o menu e cria o pedido
+                        Menu menu = new Menu();
+                        menu.showMenu();
+
+                        Pedido pedido = new Pedido(menu);
+
+                        // Coleta itens do pedido
+                        System.out.println("Digite o nome dos itens que deseja adicionar (ou 'sair' para finalizar):");
+                        String item;
+                        while (!(item = scanner.nextLine()).equalsIgnoreCase("sair")) {
+                            pedido.addItem(item);
+                        }
+
+                        // Exibe o resumo do pedido
+                        pedido.showOrder();
+
                         // Coleta as informações adicionais do cliente
                         String[] userInfo = inputHandler.getUserInfo();
                         try {
-                            saveUserDataToExcel(loginDetails[0], loginDetails[1], userInfo);
-                            System.out.println("Informações salvas com sucesso.");
+                            saveUserDataToExcel(loginDetails[0], loginDetails[1], userInfo, pedido.getTotal());
+                            System.out.println("Informações e pedido salvos com sucesso.");
                         } catch (IOException e) {
                             System.out.println("Erro ao salvar informações: " + e.getMessage());
                         }
@@ -58,14 +76,14 @@ public class Main {
         }
     }
 
-    // Função para salvar as informações do usuário em um arquivo Excel
-    public static void saveUserDataToExcel(String username, String password, String[] userInfo) throws IOException {
+    // Função para salvar as informações do usuário e o total do pedido em um arquivo Excel
+    public static void saveUserDataToExcel(String username, String password, String[] userInfo, double totalPedido) throws IOException {
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("UserData");
 
         // Criar o cabeçalho
         Row headerRow = sheet.createRow(0);
-        String[] headers = {"Username", "Password", "Nome", "Telefone", "Endereço", "CPF"};
+        String[] headers = {"Username", "Password", "Nome", "Telefone", "Endereço", "CPF", "Total Pedido"};
         for (int i = 0; i < headers.length; i++) {
             Cell cell = headerRow.createCell(i);
             cell.setCellValue(headers[i]);
@@ -79,6 +97,7 @@ public class Main {
         dataRow.createCell(3).setCellValue(userInfo[1]);
         dataRow.createCell(4).setCellValue(userInfo[2]);
         dataRow.createCell(5).setCellValue(userInfo[3]);
+        dataRow.createCell(6).setCellValue(totalPedido);
 
         // Salvar o arquivo
         try (FileOutputStream fileOut = new FileOutputStream("UserData.xlsx")) {

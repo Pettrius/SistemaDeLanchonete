@@ -15,6 +15,7 @@ public class Main {
         UserAccountManager accountManager = new UserAccountManager();
         AuthenticationService authService = new AuthenticationService(accountManager);
         InputHandler inputHandler = new InputHandler(scanner);
+        ExcellDataReader excelDataReader = new ExcellDataReader(); // Nova instância da classe
 
         // Criar conta padrão de admin
         accountManager.createAccount("admin", "password");
@@ -29,29 +30,43 @@ public class Main {
                     if (authService.login(loginDetails[0], loginDetails[1])) {
                         System.out.println("Login bem-sucedido.");
 
-                        // Exibe o menu e cria o pedido
-                        Menu menu = new Menu();
-                        menu.showMenu();
+                        // Adiciona uma opção para visualizar os dados da conta
+                        System.out.println("Digite 1 para fazer um pedido ou 2 para visualizar seus dados:");
+                        int action = scanner.nextInt();
+                        scanner.nextLine(); // Consumir a quebra de linha
 
-                        Pedido pedido = new Pedido(menu);
+                        if (action == 1) {
+                            // Exibe o menu e cria o pedido
+                            Menu menu = new Menu();
+                            menu.showMenu();
 
-                        // Coleta itens do pedido
-                        System.out.println("Digite o nome dos itens que deseja adicionar (ou 'sair' para finalizar):");
-                        String item;
-                        while (!(item = scanner.nextLine()).equalsIgnoreCase("sair")) {
-                            pedido.addItem(item);
-                        }
+                            Pedido pedido = new Pedido(menu);
 
-                        // Exibe o resumo do pedido
-                        pedido.showOrder();
+                            // Coleta itens do pedido
+                            System.out.println("Digite o nome dos itens que deseja adicionar (ou 'sair' para finalizar):");
+                            String item;
+                            while (!(item = scanner.nextLine()).equalsIgnoreCase("sair")) {
+                                pedido.addItem(item);
+                            }
 
-                        // Coleta as informações adicionais do cliente
-                        String[] userInfo = inputHandler.getUserInfo();
-                        try {
-                            saveUserDataToExcel(loginDetails[0], loginDetails[1], userInfo, pedido.getTotal());
-                            System.out.println("Informações e pedido salvos com sucesso.");
-                        } catch (IOException e) {
-                            System.out.println("Erro ao salvar informações: " + e.getMessage());
+                            // Exibe o resumo do pedido
+                            pedido.showOrder();
+
+                            // Coleta as informações adicionais do cliente
+                            String[] userInfo = inputHandler.getUserInfo();
+                            try {
+                                saveUserDataToExcel(loginDetails[0], loginDetails[1], userInfo, pedido.getTotal());
+                                System.out.println("Informações e pedido salvos com sucesso.");
+                            } catch (IOException e) {
+                                System.out.println("Erro ao salvar informações: " + e.getMessage());
+                            }
+                        } else if (action == 2) {
+                            // Exibe os dados da conta do usuário logado
+                            try {
+                                excelDataReader.displayUserData(loginDetails[0]);
+                            } catch (IOException e) {
+                                System.out.println("Erro ao exibir dados: " + e.getMessage());
+                            }
                         }
 
                     } else {

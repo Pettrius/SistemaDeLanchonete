@@ -1,37 +1,30 @@
 package Pedido;
 
+import Usuario.InputHandler;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Pedido {
-    private List<String> items;
-    private Menu menu;
-    private double total;
+    public InputHandler inputHandler;
+    public List<ItemCardapio> itens;
+    public double total;
 
-    public Pedido(Menu menu) {
-        this.menu = menu;
-        this.items = new ArrayList<>();
+    // Construtor
+    public Pedido(InputHandler inputHandler) {
+        this.inputHandler = inputHandler;
+        this.itens = new ArrayList<>();
         this.total = 0.0;
     }
 
-    public void addItem(String item) {
-        if (menu.itemExists(item)) {
-            items.add(item);
-            total += menu.getPrice(item);
-        } else {
-            System.out.println("Item não encontrado no menu.");
-        }
+    // Métodos para adicionar itens ao pedido
+    public void adicionarItem(ItemCardapio item) {
+        this.itens.add(item);
+        this.total += item.getPreco();
     }
 
-    public void showOrder() {
-        System.out.println(" Pedido ");
-        for (String item : items) {
-            System.out.println(item + " - $" + menu.getPrice(item));
-        }
-        System.out.println("Total: $" + total);
-    }
-
-    public double getTotal() {
-        return total;
-    }
+    // Getters e Setters
+    public InputHandler getUsuario() { return inputHandler; }
+    public List<ItemCardapio> getItens() { return itens; }
+    public double getTotal() { return total; }
 }

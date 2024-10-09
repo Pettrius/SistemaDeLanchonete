@@ -17,7 +17,6 @@ public class UserAccountManager {
         loadAccountsFromExcel();
     }
 
-    // Método para criar uma nova conta
     public boolean createAccount(String username, String password) {
         if (accounts.containsKey(username)) {
             return false; // Usuário já existe
@@ -27,12 +26,10 @@ public class UserAccountManager {
         return true;
     }
 
-    // Verifica se o usuário e senha estão corretos
     public boolean isValidAccount(String username, String password) {
         return accounts.containsKey(username) && accounts.get(username).equals(password);
     }
 
-    // Carrega as contas de um arquivo Excel
     private void loadAccountsFromExcel() {
         try (FileInputStream file = new FileInputStream(new File(FILE_NAME));
              Workbook workbook = new XSSFWorkbook(file)) {
@@ -52,7 +49,6 @@ public class UserAccountManager {
         }
     }
 
-    // Salva uma nova conta no arquivo Excel
     private void saveAccountToExcel(String username, String password) {
         try (FileInputStream file = new FileInputStream(new File(FILE_NAME));
              Workbook workbook = new XSSFWorkbook(file)) {
@@ -75,7 +71,6 @@ public class UserAccountManager {
         }
     }
 
-    // Inicializa um arquivo Excel vazio caso ele não exista
     public void initializeExcelFile() {
         File file = new File(FILE_NAME);
         if (!file.exists()) {

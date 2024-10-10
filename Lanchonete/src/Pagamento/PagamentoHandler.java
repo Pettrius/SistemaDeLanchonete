@@ -23,7 +23,7 @@ public class PagamentoHandler {
         System.out.println("3. Cartão de Débito");
 
         int opcaoPagamento = scanner.nextInt();
-        scanner.nextLine(); // Consumir a quebra de linha
+        scanner.nextLine();
 
         switch (opcaoPagamento) {
             case 1:

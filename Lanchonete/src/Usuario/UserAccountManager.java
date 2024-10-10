@@ -13,13 +13,12 @@ public class UserAccountManager {
     private static final String FILE_NAME = "usuarios.xlsx";
 
     public UserAccountManager() {
-        // Carrega os usuários do arquivo Excel
         loadAccountsFromExcel();
     }
 
     public boolean createAccount(String username, String password) {
         if (accounts.containsKey(username)) {
-            return false; // Usuário já existe
+            return false;
         }
         accounts.put(username, password);
         saveAccountToExcel(username, password);
@@ -41,7 +40,7 @@ public class UserAccountManager {
                 if (usernameCell != null && passwordCell != null) {
                     String username = usernameCell.getStringCellValue();
                     String password = passwordCell.getStringCellValue();
-                    accounts.put(username, password); // Carrega na HashMap
+                    accounts.put(username, password);
                 }
             }
         } catch (IOException e) {
@@ -54,7 +53,7 @@ public class UserAccountManager {
              Workbook workbook = new XSSFWorkbook(file)) {
 
             Sheet sheet = workbook.getSheetAt(0);
-            int rowNum = sheet.getLastRowNum() + 1;  // Nova linha
+            int rowNum = sheet.getLastRowNum() + 1;
             Row row = sheet.createRow(rowNum);
 
             Cell usernameCell = row.createCell(0);
@@ -64,7 +63,7 @@ public class UserAccountManager {
             passwordCell.setCellValue(password);
 
             try (FileOutputStream outFile = new FileOutputStream(new File(FILE_NAME))) {
-                workbook.write(outFile);  // Salva o arquivo
+                workbook.write(outFile);
             }
         } catch (IOException e) {
             System.out.println("Erro ao salvar os dados no arquivo Excel: " + e.getMessage());

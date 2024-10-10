@@ -19,9 +19,8 @@ public class Main {
         AuthenticationService authService = new AuthenticationService(accountManager);
         InputHandler inputHandler = new InputHandler(scanner);
         ExcellDataReader excelDataReader = new ExcellDataReader();
-        PagamentoHandler pagamentoHandler = new PagamentoHandler(scanner); // Passando o Scanner para PagamentoHandler
+        PagamentoHandler pagamentoHandler = new PagamentoHandler(scanner);
 
-        // Criar conta padrão de admin
         accountManager.createAccount("admin", "password");
 
         while (true) {
@@ -34,13 +33,11 @@ public class Main {
                     if (authService.login(loginDetails[0], loginDetails[1])) {
                         System.out.println("Login bem-sucedido.");
 
-                        // Opções para fazer um pedido ou visualizar dados
                         System.out.println("Digite 1 para fazer um pedido ou 2 para visualizar seus dados:");
                         int action = scanner.nextInt();
                         scanner.nextLine(); // Consumir a quebra de linha
 
                         if (action == 1) {
-                            // Exibe o menu e cria o pedido
                             Cardapio cardapio = new Cardapio();
                             Pedido pedido = new Pedido(inputHandler);
 
@@ -49,7 +46,6 @@ public class Main {
                                 System.out.println(item.getNome() + " - R$ " + item.getPreco());
                             }
 
-                            // Coleta itens do pedido
                             System.out.println("Digite o nome dos itens que deseja adicionar (ou 'sair' para finalizar):");
                             String itemNome;
                             while (!(itemNome = scanner.nextLine()).equalsIgnoreCase("sair")) {
@@ -61,10 +57,8 @@ public class Main {
                                 }
                             }
 
-                            // Exibe o resumo do pedido
                             exibirResumoPedido(pedido);
 
-                            // Coleta as informações adicionais do cliente
                             String[] userInfo = inputHandler.getUserInfo();
                             try {
                                 saveUserDataToExcel(loginDetails[0], loginDetails[1], userInfo, pedido);
@@ -73,14 +67,12 @@ public class Main {
                                 System.out.println("Erro ao salvar informações: " + e.getMessage());
                             }
 
-                            // Realiza o pagamento
                             if (pagamentoHandler.realizarPagamento(pedido)) {
                                 System.out.println("Pagamento concluído.");
                             } else {
                                 System.out.println("Erro ao realizar o pagamento.");
                             }
                         } else if (action == 2) {
-                            // Exibe os dados da conta do usuário logado
                             try {
                                 excelDataReader.displayUserData(loginDetails[0]);
                             } catch (IOException e) {
@@ -110,7 +102,6 @@ public class Main {
         }
     }
 
-    // Função para exibir o resumo do pedido
     public static void exibirResumoPedido(Pedido pedido) {
         System.out.println("Resumo do Pedido:");
         for (ItemCardapio item : pedido.getItens()) {
@@ -119,7 +110,6 @@ public class Main {
         System.out.println("Total: R$ " + pedido.getTotal());
     }
 
-    // Função para salvar as informações do usuário e o total do pedido em um arquivo Excel
     public static void saveUserDataToExcel(String username, String password, String[] userInfo, Pedido pedido) throws IOException {
         // Checa se o arquivo já existe
         File file = new File("UserData.xlsx");
@@ -135,7 +125,6 @@ public class Main {
             workbook = new XSSFWorkbook();
             sheet = workbook.createSheet("UserData");
 
-            // Cria o cabeçalho
             Row headerRow = sheet.createRow(0);
             String[] headers = {"Username", "Password", "Nome", "Telefone", "Endereço", "CPF", "Total Pedido", "Itens Pedidos"};
             for (int i = 0; i < headers.length; i++) {
@@ -144,7 +133,6 @@ public class Main {
             }
         }
 
-        // Adiciona os dados do usuário
         int lastRow = sheet.getLastRowNum();
         Row dataRow = sheet.createRow(lastRow + 1);
         dataRow.createCell(0).setCellValue(username);
@@ -155,13 +143,11 @@ public class Main {
         dataRow.createCell(5).setCellValue(userInfo[3]);
         dataRow.createCell(6).setCellValue(pedido.getTotal());
 
-        // Salvar os itens pedidos em uma única célula
         StringBuilder itensPedidos = new StringBuilder();
         for (ItemCardapio item : pedido.getItens()) {
             itensPedidos.append(item.getNome()).append(" (R$ ").append(item.getPreco()).append("), ");
         }
 
-        // Remove a última vírgula e espaço
         if (itensPedidos.length() > 0) {
             itensPedidos.setLength(itensPedidos.length() - 2); // Remove a última vírgula e espaço
         }

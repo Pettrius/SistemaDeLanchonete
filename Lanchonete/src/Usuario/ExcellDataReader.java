@@ -21,12 +21,10 @@ public class ExcellDataReader {
 
             Sheet sheet = workbook.getSheetAt(0);
 
-            // Percorre todas as linhas para encontrar os dados do usuário
             boolean userFound = false;
             for (Row row : sheet) {
                 Cell usernameCell = row.getCell(0);
                 if (usernameCell != null && usernameCell.getStringCellValue().equals(username)) {
-                    // Exibe os dados da conta
                     System.out.println("Username: " + usernameCell.getStringCellValue());
                     System.out.println("Password: " + row.getCell(1).getStringCellValue());
                     System.out.println("Nome: " + row.getCell(2).getStringCellValue());

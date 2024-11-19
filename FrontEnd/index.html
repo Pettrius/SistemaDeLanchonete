@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Lanchonete Interativa</title>
+</head>
+<body>
+    <!-- Tela de Login -->
+    <div id="login-screen" class="screen">
+        <h1>Login</h1>
+        <input id="login-username" type="text" placeholder="Usuário">
+        <input id="login-password" type="password" placeholder="Senha">
+        <button onclick="login()">Entrar</button>
+        <button onclick="showScreen('register-screen')">Criar Conta</button>
+    </div>
+
+    <!-- Tela de Registro -->
+    <div id="register-screen" class="screen" style="display: none;">
+        <h1>Registro</h1>
+        <input id="register-username" type="text" placeholder="Novo Usuário">
+        <input id="register-password" type="password" placeholder="Nova Senha">
+        <button onclick="register()">Registrar</button>
+        <button onclick="showScreen('login-screen')">Voltar</button>
+    </div>
+
+    <!-- Tela do Menu -->
+    <div id="menu-screen" class="screen" style="display: none;">
+        <h1>Cardápio</h1>
+        <div class="menu">
+            <div class="menu-column">
+                <h2>Salgados</h2>
+                <button onclick="adicionarItem('Coxinha', 5.00)">Coxinha - R$5,00</button>
+                <button onclick="adicionarItem('Pastel', 6.00)">Pastel - R$6,00</button>
+                <button onclick="adicionarItem('Empada', 4.50)">Empada - R$4,50</button>
+            </div>
+            <div class="menu-column">
+                <h2>Bebidas</h2>
+                <button onclick="adicionarItem('Coca-Cola', 3.00)">Coca-Cola - R$3,00</button>
+                <button onclick="adicionarItem('Guaraná', 3.00)">Guaraná - R$3,00</button>
+                <button onclick="adicionarItem('Suco', 4.00)">Suco - R$4,00</button>
+            </div>
+        </div>
+        <h2>Pedido</h2>
+        <ul id="pedido-itens"></ul>
+        <p id="total">Total: R$0.00</p>
+        <button onclick="nextToDelivery()">Continuar</button>
+    </div>
+
+    <!-- Tela de Entrega -->
+    <div id="delivery-screen" class="screen" style="display: none;">
+        <h1>Entrega ou Retirada</h1>
+        <button onclick="setDeliveryOption('Retirar no Balcão')">Retirar no Balcão</button>
+        <button onclick="setDeliveryOption('Entrega')">Entrega</button>
+        <div id="address-section" style="display: none;">
+            <h2>Endereço de Entrega</h2>
+            <input id="address" type="text" placeholder="Endereço">
+        </div>
+        <button onclick="nextToPayment()">Continuar</button>
+    </div>
+
+    <!-- Tela de Cadastro Final -->
+<div id="payment-screen" class="screen" style="display: none;">
+    <h1>Cadastro Final</h1>
+    <input id="name" type="text" placeholder="Nome Completo">
+    <input id="phone" type="text" placeholder="Telefone">
+    <input id="cpf" type="text" placeholder="CPF">
+    <button onclick="finalizarPedido()">Finalizar Pedido</button>
+</div>
+
+<!-- Tela de Conclusão -->
+<div id="completion-screen" class="screen" style="display: none;">
+    <h1>Pedido Finalizado!</h1>
+    <p>O pedido foi salvo e está sendo processado.</p>
+    <button onclick="voltarAoMenu()">Novo Pedido</button>
+    <button onclick="encerrar()">Encerrar</button>
+</div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+    <script src="script.js"></script>
+</body>
+</html>

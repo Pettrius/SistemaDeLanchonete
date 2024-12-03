@@ -3,23 +3,23 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background: linear-gradient(135deg, #4b0082, #ff8c00);
-    color: #fff;
+    background: linear-gradient(135deg, #0033cc, #ff3333); /* Azul e Vermelho no fundo */
+    color: #fff; /* Texto branco para contraste */
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    text-align: center; /* Centraliza textos */
 }
 
 /* Container geral das telas */
 .screen {
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: rgba(255, 255, 255, 0.9); /* Fundo branco translúcido */
     width: 90%;
     max-width: 400px;
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-    text-align: center;
     animation: fadeIn 0.8s ease-in-out;
 }
 
@@ -39,14 +39,15 @@ body {
 .screen h1 {
     font-size: 2rem;
     margin-bottom: 20px;
-    color: #333;
+    color: #0033cc; /* Azul para títulos */
+    font-weight: bold;
 }
 
-/* Subtítulos */
 .screen h2 {
     font-size: 1.5rem;
     margin: 15px 0;
-    color: #555;
+    color: #ff3333; /* Vermelho para subtítulos */
+    font-style: italic;
 }
 
 /* Inputs */
@@ -54,16 +55,17 @@ body {
     width: calc(100% - 20px);
     padding: 12px;
     margin: 10px 0;
-    border: 2px solid #ddd;
+    border: 2px solid #0033cc; /* Azul nas bordas */
     border-radius: 8px;
     font-size: 1rem;
     transition: border-color 0.3s, box-shadow 0.3s;
+    text-align: center; /* Centraliza textos nos inputs */
 }
 
 /* Foco nos inputs */
 .screen input:focus {
-    border-color: #4b0082;
-    box-shadow: 0 0 8px rgba(75, 0, 130, 0.3);
+    border-color: #ff3333; /* Destaque em vermelho no foco */
+    box-shadow: 0 0 8px rgba(255, 51, 51, 0.3);
     outline: none;
 }
 
@@ -78,18 +80,14 @@ body {
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s;
+    text-align: center; /* Centraliza textos */
 }
 
 /* Botão padrão */
 .screen button {
-    background: linear-gradient(135deg, #4b0082, #6a0dad);
-    color: #fff;
-    box-shadow: 0 4px 10px rgba(75, 0, 130, 0.2);
-}
-
-/* Botões secundários */
-.screen button:nth-child(even) {
-    background: linear-gradient(135deg, #ff8c00, #ffa500);
+    background: linear-gradient(135deg, #0033cc, #ff3333); /* Gradiente Azul-Vermelho */
+    color: #fff; /* Texto branco para contraste */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 /* Hover nos botões */
@@ -107,20 +105,21 @@ body {
 /* Menu de opções */
 .menu {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column; /* Alinha itens na vertical */
+    align-items: center; /* Centraliza */
     margin: 20px 0;
 }
 
 /* Colunas do menu */
 .menu-column {
     flex: 1;
-    padding: 0 10px;
-    text-align: left;
+    padding: 10px;
+    text-align: center; /* Centraliza textos */
 }
 
 /* Lista de pedidos */
 #pedido-itens {
-    text-align: left;
+    text-align: center; /* Centraliza a lista */
     list-style: none;
     padding: 0;
     margin: 15px 0;
@@ -129,14 +128,14 @@ body {
 #pedido-itens li {
     margin-bottom: 10px;
     font-size: 1rem;
-    color: #555;
+    color: #333; /* Cor neutra para itens */
 }
 
 /* Total */
 #total {
     font-size: 1.2rem;
     font-weight: bold;
-    color: #333;
+    color: #0033cc; /* Azul para destaque */
     margin: 15px 0;
 }
 
@@ -149,9 +148,10 @@ body {
     width: calc(100% - 20px);
     padding: 12px;
     margin: 5px 0;
-    border: 2px solid #ddd;
+    border: 2px solid #ff3333; /* Vermelho nas bordas */
     border-radius: 8px;
     font-size: 1rem;
+    text-align: center; /* Centraliza texto no input */
 }
 
 /* Detalhes de pagamento */
@@ -169,6 +169,7 @@ body {
 
 #card-details input, #cash-details input {
     width: calc(100% - 20px);
+    text-align: center; /* Centraliza texto nos inputs */
 }
 
 /* Responsividade */
@@ -187,3 +188,5 @@ body {
         margin: 5px 0;
     }
 }
+
+

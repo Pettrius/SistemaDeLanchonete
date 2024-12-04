@@ -91,6 +91,7 @@ body {
     cursor: pointer;
     transition: all 0.3s;
     text-align: center; /* Centraliza textos */
+    align-items: center; 
 }
 
 /* Botão padrão */
@@ -110,6 +111,11 @@ body {
 .screen button:active {
     transform: scale(0.95);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.screen button:last-child {
+    margin: 0 auto; /* Centraliza horizontalmente */
+    display: block; /* Garante que o botão seja tratado como bloco */
 }
 
 .menu {

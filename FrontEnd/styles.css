@@ -1,16 +1,15 @@
 /* Estilos gerais */
 body {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(135deg, #283E51, #4B79A1); /* Tons de azul elegante */
-    color: #fff; /* Texto branco para contraste */
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    text-align: center; /* Centraliza textos */
-    overflow: hidden;
+    min-height: 100vh; /* Garante que o container ocupe 100% da altura da tela */
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #1A237E, #90CAF9);
+    color: #fff;
+    text-align: center;
+    overflow: auto; /* Permite rolagem caso necessário */
 }
 
 /* Container geral das telas */
@@ -22,13 +21,18 @@ body {
     border-radius: 20px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
     animation: fadeIn 0.8s ease-in-out;
+    display: flex;
+    flex-direction: column; /* Alinha os elementos na vertical */
+    align-items: center; /* Centraliza horizontalmente */
+    justify-content: center; /* Centraliza verticalmente */
+    position: relative;
 }
 
 /* Animação de entrada */
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(10%);
+        transform: translateY(-20px);
     }
     to {
         opacity: 1;
@@ -40,25 +44,26 @@ body {
 .screen h1 {
     font-size: 2.2rem;
     margin-bottom: 20px;
-    color: #4B79A1; /* Azul elegante */
+    color: #1A237E; /* Azul escuro */
     font-weight: bold;
-    text-shadow: 1px 1px 2px #283E51;
+    text-shadow: 1px 1px 2px #90CAF9; /* Azul claro */
 }
 
 .screen h2 {
     font-size: 1.5rem;
     margin: 15px 0;
-    color: #283E51; /* Azul escuro para subtítulos */
+    color: #90CAF9; /* Azul claro */
     font-style: italic;
-    text-shadow: 1px 1px 2px #4B79A1;
+    text-shadow: 1px 1px 2px #1A237E; /* Azul escuro */
 }
 
 /* Inputs */
 .screen input {
     width: 100%;
+    max-width: 350px;
     padding: 12px;
     margin: 10px 0;
-    border: 2px solid #4B79A1; /* Azul nas bordas */
+    border: 2px solid #90CAF9; /* Azul claro nas bordas */
     border-radius: 10px;
     font-size: 1rem;
     transition: border-color 0.3s, box-shadow 0.3s;
@@ -68,14 +73,15 @@ body {
 
 /* Foco nos inputs */
 .screen input:focus {
-    border-color: #283E51; /* Destaque no foco */
-    box-shadow: 0 0 8px rgba(40, 62, 81, 0.5);
+    border-color: #1A237E; /* Destaque no foco com azul escuro */
+    box-shadow: 0 0 8px rgba(26, 35, 126, 0.5); /* Azul escuro translúcido */
     outline: none;
 }
 
 /* Botões */
 .screen button {
     width: 100%;
+    max-width: 350px;
     padding: 12px;
     margin: 10px 0;
     font-size: 1rem;
@@ -89,7 +95,7 @@ body {
 
 /* Botão padrão */
 .screen button {
-    background: linear-gradient(135deg, #283E51, #4B79A1); /* Gradiente Azul moderno */
+    background: linear-gradient(135deg, #1A237E, #90CAF9); /* Gradiente azul escuro para azul claro */
     color: #fff; /* Texto branco */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
@@ -106,23 +112,15 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Menu de opções */
 .menu {
     display: flex;
-    justify-content: space-around; /* Espaçamento uniforme entre colunas */
-    margin: 20px 0;
+    flex-wrap: wrap; /* Permite quebra de linha */
+    justify-content: space-around; /* Espaça uniformemente os botões */
 }
 
-/* Colunas do menu */
 .menu-column {
-    flex: 1;
-    padding: 10px;
-    text-align: center;
-    border-right: 1px solid #ccc;
-}
-
-.menu-column:last-child {
-    border-right: none;
+    flex: 1 1 45%; /* Garante que cada coluna ocupe aproximadamente metade da largura */
+    margin: 10px;
 }
 
 /* Lista de pedidos */
@@ -131,29 +129,35 @@ body {
     padding: 0;
     margin: 15px 0;
     font-size: 1rem;
-    color: #4B79A1; /* Azul escuro */
+    color: #1A237E; /* Azul escuro */
+}
+
+/* Tela de Registro -> Caso de erro */
+#register-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%; /* Preenche toda a largura disponível */
 }
 
 #pedido-itens li {
     margin-bottom: 10px;
     font-size: 1rem;
-    text-shadow: 1px 1px 2px #ccc;
+    text-shadow: 1px 1px 2px #90CAF9; /* Azul claro */
+}
+
+#menu-screen {
+    max-height: 90vh; /* Define uma altura máxima */
+    overflow-y: auto; /* Adiciona rolagem apenas no eixo Y */
 }
 
 /* Total */
 #total {
     font-size: 1.2rem;
     font-weight: bold;
-    color: #283E51; /* Azul escuro */
+    color: #1A237E; /* Azul escuro */
     margin: 15px 0;
-}
-
-/* Endereço de entrega */
-#address-section input {
-    width: calc(100% - 20px);
-    text-align: center;
-    border-color: #4B79A1;
-    background-color: #f9f9f9;
 }
 
 /* Responsividade */
